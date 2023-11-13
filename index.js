@@ -18,8 +18,6 @@ function removeError() {
 }
 
 
-
-
 function validateInput() {
   for (let i = 0; i < inputArr.length; i++) {
     let x  = inputArr[i].value;
