@@ -13,10 +13,15 @@ let yearsOutput = document.querySelector("i#yearsOutput")
 let monthsOutput = document.querySelector("i#monthsOutput")
 let daysOutput = document.querySelector("i#daysOutput")
 
+let mainError = document.querySelector(".mainError")
+
 
 inputArr[0].oninput = function () {
     if (this.value.length > 2) {
         this.value = this.value.slice(0,2);
+    }
+    else if (this.value.length == 2) {
+        inputArr[1].focus();
     }
 }
 
@@ -24,12 +29,37 @@ inputArr[1].oninput = function () {
     if (this.value.length > 2) {
         this.value = this.value.slice(0,2); 
     }
+    else if (this.value.length == 2 ) {
+        inputArr[2].focus();
+    }
+    else if (this.value.length == 0) {
+        inputArr[0].focus();
+    }
 }
 
 inputArr[2].oninput = function () {
     if (this.value.length > 4) {
         this.value = this.value.slice(0,4); 
     }
+    else if (this.value.length == 4) {
+        calculate();
+    }
+    else if (this.value.length == 0) {
+        inputArr[1].focus()
+    }
+    else if (mainError.classList.contains("hidden") == false) {
+        clearOutput()
+        for (let i = 0; i < inputArr.length; i++) {
+            inputArr[i].blur();
+        }
+    }
+}
+
+
+function clearOutput() {
+    yearsOutput.innerHTML = '<span id="yearSpan">--</span> years'
+    monthsOutput.innerHTML = '<span id="monthSpan">--</span> months'
+    daysOutput.innerHTML = '<span id="daySpan">--</span> days'
 }
 
 function removeError() {
@@ -37,11 +67,21 @@ function removeError() {
         inputArr[i].classList.remove("notFilled")
         inputP[i].classList.remove("pNotFilled")
         errMessage[i].classList.add("hidden")
+        clearOutput();
     }
 }
 
 function validateInput() {
   for (let i = 0; i < inputArr.length; i++) {
+
+    function wrongDate() {
+        inputArr[i].classList.add("notFilled");
+        inputP[i].classList.add("pNotFilled");
+        mainError.classList.remove("hidden");
+    }
+
+    let currentYear = new Date().getFullYear();
+    
     let x  = inputArr[i].value;
     if (x === "") {
       inputArr[i].classList.add("notFilled");
@@ -49,9 +89,30 @@ function validateInput() {
       errMessage[i].classList.remove("hidden")
     }
     else if ((inputArr[0].value > 28) && (inputArr[1].value == 2)) {
-        inputArr[i].classList.add("notFilled");
-        inputP[i].classList.add("pNotFilled");
+        wrongDate();
+        mainError.innerText = "Must be a real date";
     }
+    else if ((inputArr[0].value > 30) && (inputArr[1].value == 4||5||9||11)) {
+        wrongDate();
+        mainError.innerText = "Must be a real date";
+    }
+    else if ((inputArr[0].value > 31) && (inputArr[1].value == 1||3||6||7||8||10||12)) {
+        wrongDate();
+        mainError.innerText = "Must be a real date";
+    }
+    else if (inputArr[1].value > 12) {
+        wrongDate();
+        mainError.innerText = "Must be a valid month"
+    }
+    else if (inputArr[2].value > currentYear) {
+        wrongDate()
+        mainError.innerText = "Date cannot be in the future"
+    }
+    else if (inputArr[2].value < (currentYear-150)) {
+        wrongDate()
+        mainError.innerText = "That's not right"
+    }
+
     else {
         let monthInput = inputArr[1];
         let dateInput = inputArr[0];
