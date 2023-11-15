@@ -9,6 +9,29 @@ let inputP = document.querySelectorAll(".inputP")
 
 let errMessage = document.querySelectorAll(".error")
 
+let yearsOutput = document.querySelector("i#yearsOutput")
+let monthsOutput = document.querySelector("i#monthsOutput")
+let daysOutput = document.querySelector("i#daysOutput")
+
+
+inputArr[0].oninput = function () {
+    if (this.value.length > 2) {
+        this.value = this.value.slice(0,2);
+    }
+}
+
+inputArr[1].oninput = function () {
+    if (this.value.length > 2) {
+        this.value = this.value.slice(0,2); 
+    }
+}
+
+inputArr[2].oninput = function () {
+    if (this.value.length > 4) {
+        this.value = this.value.slice(0,4); 
+    }
+}
+
 function removeError() {
     for (let i = 0; i < inputArr.length; i++) {
         inputArr[i].classList.remove("notFilled")
@@ -16,7 +39,6 @@ function removeError() {
         errMessage[i].classList.add("hidden")
     }
 }
-
 
 function validateInput() {
   for (let i = 0; i < inputArr.length; i++) {
@@ -26,9 +48,99 @@ function validateInput() {
       inputP[i].classList.add("pNotFilled");
       errMessage[i].classList.remove("hidden")
     }
+    else if ((inputArr[0].value > 28) && (inputArr[1].value == 2)) {
+        inputArr[i].classList.add("notFilled");
+        inputP[i].classList.add("pNotFilled");
+    }
+    else {
+        let monthInput = inputArr[1];
+        let dateInput = inputArr[0];
+        let yearInput = inputArr[2];
+
+        if (monthInput.value.length == 1) {
+                monthInput.value = '0' + monthInput.value
+        }
+
+        if (dateInput.value.length == 1) {
+                dateInput.value = '0' + dateInput.value
+        }
+        let dateString = monthInput.value + "-" + dateInput.value + "-" + yearInput.value;
+        getAge(dateString);
+    }
   }
 }
 
+
 function calculate() {
   validateInput();
+}
+
+// Function to find the age from a given date input
+
+function getAge(dateString) {
+    var now = new Date();
+  
+    var yearNow = now.getYear();
+    var monthNow = now.getMonth();
+    var dateNow = now.getDate();
+  
+    var dob = new Date(dateString.substring(6,10),
+                       dateString.substring(0,2)-1,                   
+                       dateString.substring(3,5)                  
+    );
+  
+    var yearDob = dob.getYear();
+    var monthDob = dob.getMonth();
+    var dateDob = dob.getDate();
+    var age = {};
+    var ageString = "";
+    var yearString = "";
+    var monthString = "";
+    var dayString = "";
+  
+  
+    yearAge = yearNow - yearDob;
+  
+    if (monthNow >= monthDob)
+      var monthAge = monthNow - monthDob;
+    else {
+      yearAge--;
+      var monthAge = 12 + monthNow -monthDob;
+    }
+  
+    if (dateNow >= dateDob)
+      var dateAge = dateNow - dateDob;
+    else {
+      monthAge--;
+      var dateAge = 31 + dateNow - dateDob;
+  
+      if (monthAge < 0) {
+        monthAge = 11;
+        yearAge--;
+      }
+    }
+  
+    age = {
+        years: yearAge,
+        months: monthAge,
+        days: dateAge
+        };
+  
+    if ( age.years > 1 ) yearString = " years";
+    else yearString = " year";
+    if ( age.months> 1 ) monthString = " months";
+    else monthString = " month";
+    if ( age.days > 1 ) dayString = " days";
+    else dayString = " day";
+
+
+    let years = age.years + yearString;
+    let months = age.months + monthString;
+    let days = age.days + dayString;
+
+    yearsOutput.innerHTML = '<span id="yearSpan">' + age.years + '</span> ' + yearString;
+    monthsOutput.innerHTML = '<span id="monthSpan">' + age.months + '</span> ' + monthString;
+    daysOutput.innerHTML = '<span id="daySpan">' + age.days + '</span> ' + dayString;
+
+  
 }

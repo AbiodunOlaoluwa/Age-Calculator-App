@@ -13,7 +13,7 @@
             <div class="top-bar">
                 <label for="day"><p class="inputP">DAY</p>
                     <input onclick="removeError()" type="text" name="day" id="day" placeholder="DD">
-                    <i><p class="error hidden">This field is required</p></i>
+                    <i><p class="error hidden mainError">This field is required</p></i>
                 </label>
                 <label for="month"><p class="inputP">MONTH</p>
                     <input onclick="removeError()" type="text" name="month" id="month" placeholder="MM">
@@ -30,13 +30,13 @@
             </div>
             <div class='bottom-bar'>
                 <div class='years'>
-                  <p><i><span>--</span> years</i></p>
+                  <p><i id="yearsOutput"><span id="yearSpan">--</span> years</i></p>
                 </div>
                 <div class='months'>
-                  <p><i><span>--</span> months</i></p>
+                  <p><i id="monthsOutput"><span id="monthSpan">--</span> months</i></p>
                 </div>
                 <div class='days'>
-                  <p><i><span>--</span> days</i></p>
+                  <p><i id="daysOutput"><span id="daySpan">--</span> days</i></p>
                 </div>
         </div>
     </div>
