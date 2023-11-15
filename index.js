@@ -20,6 +20,9 @@ inputArr[0].oninput = function () {
     if (this.value.length > 2) {
         this.value = this.value.slice(0,2);
     }
+    else if ((this.value.length < 2) && (this.value.length > 0)) {
+        clearOutput();
+    }
     else if (this.value.length == 2) {
         inputArr[1].focus();
     }
@@ -28,6 +31,9 @@ inputArr[0].oninput = function () {
 inputArr[1].oninput = function () {
     if (this.value.length > 2) {
         this.value = this.value.slice(0,2); 
+    }
+    else if ((this.value.length < 2) && (this.value.length > 0)) {
+        clearOutput();
     }
     else if (this.value.length == 2 ) {
         inputArr[2].focus();
@@ -40,6 +46,9 @@ inputArr[1].oninput = function () {
 inputArr[2].oninput = function () {
     if (this.value.length > 4) {
         this.value = this.value.slice(0,4); 
+    }
+    else if ((this.value.length < 4) && (this.value.length > 0)) {
+        clearOutput();
     }
     else if (this.value.length == 4) {
         calculate();
@@ -78,6 +87,7 @@ function validateInput() {
         inputArr[i].classList.add("notFilled");
         inputP[i].classList.add("pNotFilled");
         mainError.classList.remove("hidden");
+        inputArr[i].blur()
     }
 
     let currentYear = new Date().getFullYear();
@@ -199,9 +209,23 @@ function getAge(dateString) {
     let months = age.months + monthString;
     let days = age.days + dayString;
 
+    
     yearsOutput.innerHTML = '<span id="yearSpan">' + age.years + '</span> ' + yearString;
     monthsOutput.innerHTML = '<span id="monthSpan">' + age.months + '</span> ' + monthString;
     daysOutput.innerHTML = '<span id="daySpan">' + age.days + '</span> ' + dayString;
+    
+    // function yearsOutputTypewriter() {
+    //     let i = 0;
+    //     let txt1 = age.years;
+    //     let txt2 = age.months;
+    //     let txt3 = age.days; 
+    //     let speed = 50;
 
+    //     if (i < txt1.length) {
+    //         yearsOutput.innerHTML = '<span id="yearSpan">' + txt1.charAt(i) + '</span> ' + yearString;
+    //         i++;
+    //         setTimeout(yearsOutputTypewriter, speed)
+    //     }
+    // }
   
 }
