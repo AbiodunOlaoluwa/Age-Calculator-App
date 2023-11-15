@@ -5,12 +5,15 @@ let input = document.querySelector("input");
 input.addEventListener(onclick, removeError)
 
 let inputArr = document.querySelectorAll("input")
+
 let inputP = document.querySelectorAll(".inputP")
 
 let errMessage = document.querySelectorAll(".error")
 
 let yearsOutput = document.querySelector("i#yearsOutput")
+
 let monthsOutput = document.querySelector("i#monthsOutput")
+
 let daysOutput = document.querySelector("i#daysOutput")
 
 let mainError = document.querySelector(".mainError")
@@ -28,6 +31,7 @@ inputArr[0].oninput = function () {
     }
 }
 
+
 inputArr[1].oninput = function () {
     if (this.value.length > 2) {
         this.value = this.value.slice(0,2); 
@@ -42,6 +46,7 @@ inputArr[1].oninput = function () {
         inputArr[0].focus();
     }
 }
+
 
 inputArr[2].oninput = function () {
     if (this.value.length > 4) {
@@ -213,19 +218,5 @@ function getAge(dateString) {
     yearsOutput.innerHTML = '<span id="yearSpan">' + age.years + '</span> ' + yearString;
     monthsOutput.innerHTML = '<span id="monthSpan">' + age.months + '</span> ' + monthString;
     daysOutput.innerHTML = '<span id="daySpan">' + age.days + '</span> ' + dayString;
-    
-    // function yearsOutputTypewriter() {
-    //     let i = 0;
-    //     let txt1 = age.years;
-    //     let txt2 = age.months;
-    //     let txt3 = age.days; 
-    //     let speed = 50;
-
-    //     if (i < txt1.length) {
-    //         yearsOutput.innerHTML = '<span id="yearSpan">' + txt1.charAt(i) + '</span> ' + yearString;
-    //         i++;
-    //         setTimeout(yearsOutputTypewriter, speed)
-    //     }
-    // }
   
 }
