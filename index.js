@@ -20,6 +20,7 @@ let mainError = document.querySelector(".mainError")
 
 
 inputArr[0].oninput = function () {
+    removeError();
     if (this.value.length > 2) {
         this.value = this.value.slice(0,2);
     }
@@ -33,6 +34,7 @@ inputArr[0].oninput = function () {
 
 
 inputArr[1].oninput = function () {
+    removeError();
     if (this.value.length > 2) {
         this.value = this.value.slice(0,2); 
     }
@@ -49,6 +51,7 @@ inputArr[1].oninput = function () {
 
 
 inputArr[2].oninput = function () {
+    removeError();
     if (this.value.length > 4) {
         this.value = this.value.slice(0,4); 
     }
