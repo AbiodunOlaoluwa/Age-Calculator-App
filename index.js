@@ -129,7 +129,7 @@ function validateInput() {
         wrongDate()
         mainError.innerText = "Date cannot be in the future";
     }
-    else if (inputArr[2].value < (currentYear-150)) {
+    else if (inputArr[2].value < (currentYear-1000)) {
         wrongDate()
         mainError.innerText = "That's not right"
     }
