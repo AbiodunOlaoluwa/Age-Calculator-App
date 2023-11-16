@@ -69,6 +69,12 @@ inputArr[2].oninput = function () {
     }
 }
 
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        calculate(); 
+    }
+});
+
 
 function clearOutput() {
     yearsOutput.innerHTML = '<span id="yearSpan">--</span> years'
