@@ -27,7 +27,7 @@ inputArr[0].oninput = function () {
     else if ((this.value.length < 2) && (this.value.length > 0)) {
         clearOutput();
     }
-    else if (this.value.length == 2) {
+    else if (this.value.length === 2) {
         inputArr[1].focus();
     }
 }
@@ -41,10 +41,10 @@ inputArr[1].oninput = function () {
     else if ((this.value.length < 2) && (this.value.length > 0)) {
         clearOutput();
     }
-    else if (this.value.length == 2 ) {
+    else if (this.value.length === 2 ) {
         inputArr[2].focus();
     }
-    else if (this.value.length == 0) {
+    else if (this.value.length === 0) {
         inputArr[0].focus();
     }
 }
@@ -58,13 +58,13 @@ inputArr[2].oninput = function () {
     else if ((this.value.length < 4) && (this.value.length > 0)) {
         clearOutput();
     }
-    else if (this.value.length == 4) {
+    else if (this.value.length === 4) {
         calculate();
     }
-    else if (this.value.length == 0) {
+    else if (this.value.length === 0) {
         inputArr[1].focus()
     }
-    else if (mainError.classList.contains("hidden") == false) {
+    else if (mainError.classList.contains("hidden") === false) {
         clearOutput()
         for (let i = 0; i < inputArr.length; i++) {
             inputArr[i].blur();
@@ -112,15 +112,15 @@ function validateInput() {
       inputP[i].classList.add("pNotFilled");
       errMessage[i].classList.remove("hidden")
     }
-    else if ((inputArr[0].value > 28) && (inputArr[1].value == 2)) {
+    else if ((inputArr[0].value > 28) && (inputArr[1].value === 2)) {
         wrongDate();
         mainError.innerText = "Must be a real date";
     }
-    else if ((inputArr[0].value > 30) && (inputArr[1].value == 4||5||9||11)) {
+    else if ((inputArr[0].value > 30) && (inputArr[1].value === 4||5||9||11)) {
         wrongDate();
         mainError.innerText = "Must be a real date";
     }
-    else if ((inputArr[0].value > 31) && (inputArr[1].value == 1||3||6||7||8||10||12)) {
+    else if ((inputArr[0].value > 31) && (inputArr[1].value === 1||3||6||7||8||10||12)) {
         wrongDate();
         mainError.innerText = "Must be a real date";
     }
@@ -142,11 +142,11 @@ function validateInput() {
         let dateInput = inputArr[0];
         let yearInput = inputArr[2];
 
-        if (monthInput.value.length == 1) {
+        if (monthInput.value.length === 1) {
                 monthInput.value = '0' + monthInput.value
         }
 
-        if (dateInput.value.length == 1) {
+        if (dateInput.value.length === 1) {
                 dateInput.value = '0' + dateInput.value
         }
         let dateString = monthInput.value + "-" + dateInput.value + "-" + yearInput.value;
@@ -178,26 +178,25 @@ function getAge(dateString) {
     var monthDob = dob.getMonth();
     var dateDob = dob.getDate();
     var age = {};
-    var ageString = "";
     var yearString = "";
     var monthString = "";
     var dayString = "";
   
   
-    yearAge = yearNow - yearDob;
+    let yearAge = yearNow - yearDob;
   
     if (monthNow >= monthDob)
       var monthAge = monthNow - monthDob;
     else {
       yearAge--;
-      var monthAge = 12 + monthNow -monthDob;
+      monthAge = 12 + monthNow -monthDob;
     }
   
     if (dateNow >= dateDob)
       var dateAge = dateNow - dateDob;
     else {
       monthAge--;
-      var dateAge = 31 + dateNow - dateDob;
+      dateAge = 31 + dateNow - dateDob;
   
       if (monthAge < 0) {
         monthAge = 11;
@@ -217,11 +216,6 @@ function getAge(dateString) {
     else monthString = " month";
     if ( age.days > 1 ) dayString = " days";
     else dayString = " day";
-
-
-    let years = age.years + yearString;
-    let months = age.months + monthString;
-    let days = age.days + dayString;
 
     
     yearsOutput.innerHTML = '<span id="yearSpan">' + age.years + '</span> ' + yearString;
